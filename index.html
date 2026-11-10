@@ -1,179 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00ffcc">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS-ID.HUB - Светофор</title>
+    <meta name="description" content="SOS-ID.HUB — Интеллектуальная рамка безопасности, экстренной связи и быстрой идентификации.">
+    <title>SOS-ID.HUB — Система экстренной безопасности</title>
+    <!-- Подключаем Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #1a261c;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+        .neon-glow {
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
         }
-
-        /* Общая внешняя рамка приложения */
-        .app-card {
-            background-color: #24342a;
-            border: 2px solid #4a6b54;
-            border-radius: 20px;
-            padding: 30px 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); }
+        .glow-yellow { box-shadow: 0 0 15px rgba(234, 179, 8, 0.6); }
+        .glow-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
+        
+        /* Плавное увеличение при наведении */
+        .traffic-btn {
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
-
-        h1 {
-            color: #fff;
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-size: 24px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
-            text-align: center;
-        }
-
-        /* Общий блок: светофор + ножка + ссылка */
-        .traffic-pole-assembly {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Корпус светофора с неоновой обводкой */
-        .traffic-light-container {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            align-items: center;
-            padding: 22px 16px;
-            background: #0d120f;
-            border-radius: 42px;
-            position: relative;
-            
-            border: 3px solid #00ffcc;
-            box-shadow: 0 0 15px #00ffcc, 
-                        inset 0 0 15px rgba(0, 255, 204, 0.4),
-                        0 10px 30px rgba(0,0,0,0.8);
-            
-            animation: neon-glow 2.5s infinite alternate;
-        }
-
-        @keyframes neon-glow {
-            0% {
-                border-color: #00ffcc;
-                box-shadow: 0 0 10px #00ffcc, inset 0 0 10px rgba(0, 255, 204, 0.3), 0 10px 30px rgba(0,0,0,0.8);
-            }
-            100% {
-                border-color: #00ff66;
-                box-shadow: 0 0 25px #00ff66, inset 0 0 20px rgba(0, 255, 102, 0.6), 0 10px 30px rgba(0,0,0,0.8);
-            }
-        }
-
-        /* Металлическая ножка */
-        .pole {
-            width: 18px;
-            height: 90px;
-            background: linear-gradient(90deg, #222, #666, #111);
-            box-shadow: 4px 5px 15px rgba(0,0,0,0.6);
-        }
-
-        /* Кликливая неоновая ссылка под ножкой */
-        .tech-link {
-            margin-top: 15px;
-            color: #00ffcc;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
-            transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.2s ease;
-        }
-
-        .tech-link:hover {
-            color: #ffeb3b;
-            text-shadow: 0 0 12px rgba(255, 235, 59, 0.9);
-            transform: scale(1.05);
-        }
-
-        /* Кнопки-сигналы с текстом */
-        .sos-button {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            border: 4px solid #fff;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5), 
-                        inset 0 0 15px rgba(255, 255, 255, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-        }
-
-        /* Цвета светофора */
-        .btn-red { background-color: #d9534f; }
-        .btn-yellow { background-color: #f0ad4e; }
-        .btn-green { background-color: #5cb85c; }
-
-        /* Эффекты при наведении */
-        .sos-button:hover {
-            transform: scale(1.06);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9),
-                        inset 0 0 20px rgba(255, 255, 255, 0.6);
-            border-color: #ffeb3b;
-        }
-
-        .sos-button:active {
-            transform: scale(0.95);
+        .traffic-btn:hover {
+            transform: scale(1.08);
+            filter: brightness(1.15);
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
 
-    <!-- Внешняя карточка-граница приложения -->
-    <div class="app-card">
-        <h1>SOS-ID.HUB</h1>
+    <!-- Шапка -->
+    <header class="py-6 px-6 border-b border-slate-800 text-center">
+        <h1 class="text-2xl font-black tracking-wider text-emerald-400">SOS-ID.HUB</h1>
+        <p class="text-sm text-slate-400">Интеллектуальная рамка безопасности и быстрой идентификации</p>
+    </header>
 
-        <div class="traffic-pole-assembly">
-            <!-- Корпус светофора с неоновой обводкой -->
-            <div class="traffic-light-container">
-                <!-- 1. Красный: SOS -->
-                <a href="https://sos-id.online" class="sos-button btn-red" target="_blank" title="Экстренный SOS">
+    <!-- Основной контент -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl grid md:grid-cols-2 gap-8 items-center">
+        
+        <!-- Левая колонка: Интерактивный светофор -->
+        <div class="flex flex-col items-center justify-center bg-slate-900/80 border border-slate-800 p-8 rounded-2xl neon-glow">
+            <div class="text-xs uppercase tracking-widest text-slate-500 mb-4 font-bold">Панель состояния (Нажми для перехода)</div>
+            
+            <!-- Корпус светофора -->
+            <div class="bg-slate-950 border-2 border-slate-700 p-4 rounded-3xl flex flex-col gap-4 w-44 items-center shadow-inner">
+                
+                <!-- SOS (Красный) -> ссылка на sos-id.online -->
+                <a href="https://sos-id.online" aria-label="Экстренный вызов SOS" class="traffic-btn w-24 h-24 rounded-full bg-red-600 glow-red flex items-center justify-center text-white font-bold text-xl tracking-wider border-2 border-red-400 no-underline">
                     SOS
                 </a>
-
-                <!-- 2. Желтый: ID -->
-                <a href="https://pet.sos-id.online" class="sos-button btn-yellow" target="_blank" title="Идентификатор / Дневник">
+                
+                <!-- ID (Желтый) -> ссылка на pet.chebur.shop -->
+                <a href="https://pet.chebur.shop" aria-label="Быстрая идентификация ID" class="traffic-btn w-24 h-24 rounded-full bg-amber-500 glow-yellow flex items-center justify-center text-slate-950 font-bold text-2xl tracking-wider border-2 border-amber-300 no-underline">
                     ID
                 </a>
-
-                <!-- 3. Зеленый: ONLINE -->
-                <a href="https://diabet-diary.chebur.shop" class="sos-button btn-green" target="_blank" title="Онлайн портал">
+                
+                <!-- ONLINE (Зеленый) -> ссылка на chebur.shop -->
+                <a href="https://chebur.shop" aria-label="Статус системы ONLINE" class="traffic-btn w-24 h-24 rounded-full bg-emerald-600 glow-green flex items-center justify-center text-white font-bold text-sm tracking-wider border-2 border-emerald-400 text-center px-2 no-underline">
                     ONLINE
                 </a>
+                
             </div>
-
-            <!-- Металлическая ножка -->
-            <div class="pole"></div>
-
-            <!-- Неоновая кликабельная ссылка под ножкой -->
-            <a href="https://tech.chebur.shop" class="tech-link" target="_blank">tech.chebur.shop</a>
+            
+            <!-- Ссылка внизу светофора на tech.chebur.shop -->
+            <a href="https://tech.chebur.shop" class="mt-6 text-xs text-emerald-400 font-mono hover:underline">
+                tech.chebur.shop
+            </a>
         </div>
-    </div>
+
+        <!-- Правая колонка: Описание -->
+        <div class="flex flex-col gap-6">
+            <h2 class="text-3xl font-bold text-white">Безопасность под контролем 24/7</h2>
+            <p class="text-slate-300 leading-relaxed">
+                <strong class="text-emerald-400">SOS-ID.HUB</strong> — это современное устройство и комплексная цифровая система оповещения. Нажимайте на индикаторы светофора или ссылку внизу, чтобы мгновенно переходить к нужным разделам экосистемы.
+            </p>
+
+            <div class="grid grid-cols-1 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                    <h3 class="font-bold text-red-400">🔴 SOS — Экстренный вызов</h3>
+                    <p class="text-sm text-slate-400">Переход на систему безопасности: <a href="https://sos-id.online" class="text-emerald-400 underline">sos-id.online</a></p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                    <h3 class="font-bold text-amber-400">🟡 ID — Быстрая идентификация</h3>
+                    <p class="text-sm text-slate-400">Переход к профилю: <a href="https://pet.chebur.shop" class="text-emerald-400 underline">pet.chebur.shop</a></p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                    <h3 class="font-bold text-emerald-400">🟢 ONLINE — Статус системы</h3>
+                    <p class="text-sm text-slate-400">Переход к профилю: <a href="https://chebur.shop" class="text-emerald-400 underline">chebur.shop</a></p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Футер / Контакты -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-sm text-slate-400 mt-12">
+        <p>Связь с разработчиком: <a href="mailto:tech.chebur@gmail.com" class="text-emerald-400 underline">tech.chebur@gmail.com</a></p>
+        <p class="mt-1">Телефон: <a href="tel:+49017661566343" class="text-emerald-400 underline">+49017661566343</a></p>
+        <p class="text-xs text-slate-600 mt-3">© 2026 SOS-ID.HUB. Все права защищены.</p>
+    </footer>
 
 </body>
 </html>
